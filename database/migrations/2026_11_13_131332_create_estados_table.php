@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('estados', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('nome', 50);
+            $table->string('sigla', 2)->unique();
         });
     }
 

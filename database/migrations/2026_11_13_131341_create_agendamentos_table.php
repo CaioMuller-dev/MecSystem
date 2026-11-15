@@ -14,6 +14,20 @@ return new class extends Migration
         Schema::create('agendamentos', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->dateTime('data_hora_inicio');
+            $table->dateTime('data_hora_fim');
+            $table->string('status', 30)->default('Agendado');
+
+            $table->foreignId('veiculo_id')
+                ->constrained('veiculos')
+                ->cascadeOnUpdate()
+                ->restrictOnDelete();
+
+            $table->foreignId('mecanico_id')
+                ->nullable()
+                ->constrained('funcionarios')
+                ->cascadeOnUpdate()
+                ->nullOnDelete();
         });
     }
 

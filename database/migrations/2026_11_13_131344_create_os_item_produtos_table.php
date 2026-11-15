@@ -14,6 +14,18 @@ return new class extends Migration
         Schema::create('os_item_produtos', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->decimal('quantidade', 10, 2);
+            $table->decimal('preco_unitario', 10, 2);
+
+            $table->foreignId('ordem_servico_id')
+                ->constrained('ordem_servicos')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+
+            $table->foreignId('produto_id')
+                ->constrained('produtos')
+                ->cascadeOnUpdate()
+                ->restrictOnDelete();
         });
     }
 

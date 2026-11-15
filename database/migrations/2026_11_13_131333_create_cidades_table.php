@@ -14,6 +14,14 @@ return new class extends Migration
         Schema::create('cidades', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('nome', 100);
+
+            $table->foreignId('estado_id')
+                ->constrained('estados')
+                ->cascadeOnUpdate()
+                ->restrictOnDelete();
+
+            $table->unique(['nome', 'estado_id']);
         });
     }
 

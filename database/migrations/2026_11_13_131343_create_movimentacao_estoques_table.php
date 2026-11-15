@@ -14,6 +14,27 @@ return new class extends Migration
         Schema::create('movimentacao_estoques', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->dateTime('data_movimento')->useCurrent();
+            $table->string('tipo', 20);
+            $table->decimal('quantidade', 10, 2);
+            $table->decimal('custo_unitario', 10, 2)->nullable();
+            $table->string('observacao', 200)->nullable();
+
+            $table->foreignId('produto_id')
+                ->constrained('produtos')
+                ->cascadeOnUpdate()
+                ->restrictOnDelete();
+
+            $table->foreignId('ordem_servico_id')
+                ->nullable()
+                ->constrained('ordem_servicos')
+                ->cascadeOnUpdate()
+                ->nullOnDelete();
+
+            $table->foreignId('user_id')
+                ->constrained('users')
+                ->cascadeOnUpdate()
+                ->restrictOnDelete();
         });
     }
 

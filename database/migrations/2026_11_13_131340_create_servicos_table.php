@@ -14,6 +14,10 @@ return new class extends Migration
         Schema::create('servicos', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('nome', 120)->unique();
+            $table->decimal('preco_base', 10, 2);
+            $table->unsignedInteger('tempo_estimado_min');
+            $table->boolean('ativo')->default(true);
         });
     }
 

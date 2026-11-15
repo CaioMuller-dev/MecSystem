@@ -14,6 +14,21 @@ return new class extends Migration
         Schema::create('pagamentos', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->dateTime('data_pagamento')->useCurrent();
+            $table->decimal('valor', 10, 2);
+            $table->string('forma_pagamento', 30);
+            $table->string('status', 30)->default('Confirmado');
+            $table->string('referencia', 100)->nullable();
+
+            $table->foreignId('ordem_servico_id')
+                ->constrained('ordem_servicos')
+                ->cascadeOnUpdate()
+                ->restrictOnDelete();
+
+            $table->foreignId('user_id')
+                ->constrained('users')
+                ->cascadeOnUpdate()
+                ->restrictOnDelete();
         });
     }
 
